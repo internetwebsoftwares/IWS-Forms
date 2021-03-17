@@ -1,0 +1,93 @@
+const router = require("express").Router();
+const auth = require("../middleware/auth");
+const Form = require("../models/formModel");
+const Answer = require("../models/answerModel");
+
+//Create form
+router.post("/new-form", auth, async (req, res) => {
+  let { questions, formName } = req.body;
+  try {
+    const form = new Form({
+      questions,
+      formName,
+      ownerName: req.user.username,
+      ownerId: req.user._id,
+    });
+
+    form.formUrl = `${process.env.domain}/form/${form._id}`;
+    await form.save();
+    res.send("Form created");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Read a form
+router.get("/form/:id", async (req, res) => {
+  const form = await Form.findById(req.params.id);
+  res.send(form);
+});
+
+//Answer the form
+router.post("/form/:id/answer", auth, async (req, res) => {
+  let { answersByUser } = req.body;
+  try {
+    const user = req.user;
+
+    const form = await Form.findById(req.params.id);
+
+    const totalQuestions = form.questions.length;
+
+    const answer = await Answer({
+      postedOnId: req.params.id,
+      postedById: user._id,
+      postedByUsername: user.username,
+      formOwnedBy: form.ownerId,
+    });
+
+    let answers = [];
+
+    for (let i = 0; i < totalQuestions; i++) {
+      answers.push({
+        question: form.questions[i],
+        answer: answersByUser[i],
+      });
+    }
+
+    answer.answers = answers;
+
+    await answer.save();
+    res.send("Answer submitted");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Read all your forms
+router.get("/form/all/:pageNo", auth, async (req, res) => {
+  try {
+    const forms = await Form.find({ ownerId: req.user._id.toString() })
+      .limit(10)
+      .skip(parseInt(req.params.pageNo * 10));
+    res.send(forms);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Read answers on a form
+router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
+  try {
+    const answers = await Answer.find({
+      postedOnId: req.params.id.toString(),
+      formOwnedBy: req.user._id.toString(),
+    })
+      .limit(10)
+      .skip(parseInt(req.params.pageNo * 10));
+    res.send(answers);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+module.exports = router;

@@ -10,32 +10,28 @@ router.post("/sign-up", async (req, res) => {
   let { username, email, password } = req.body;
   //Check all fields are filled
   if (!username || !email || !password) {
-    return res.status(400).send("All fields are required.");
+    return res.send("All fields are required.");
   }
   //Check if username is not too short
   if (username.length < 3) {
-    return res
-      .status(400)
-      .send("Username must be of atleast 3 characters long.");
+    return res.send("Username must be of atleast 3 characters long.");
   }
 
   //Check if email alreadty exits
   const isEmailExist = await User.findOne({ email });
   if (isEmailExist) {
-    return res.status(400).send("There is already an account with this email");
+    return res.send("There is already an account with this email");
   }
   //Check if email is valid
   if (!isEmail(email)) {
-    return res.status(400).send("Please enter valid email address.");
+    return res.send("Please enter valid email address.");
   }
 
   //Check if password is not short & contains a symbol a number
   if (!superCheck(password, 7)) {
-    return res
-      .status(400)
-      .send(
-        "Password must contains a symbol a number and must be of atlest 7 digits"
-      );
+    return res.send(
+      "Password must contains a symbol a number and must be of atlest 7 digits"
+    );
   }
   try {
     const user = new User({
@@ -59,15 +55,15 @@ router.post("/sign-up", async (req, res) => {
 router.post("/login", async (req, res) => {
   let { email, password } = req.body;
   if (!email || !password) {
-    return res.status(400).send("Please enter email & password.");
+    return res.send("Please enter email & password.");
   }
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(400).send("Incorrect username or password.");
+    return res.send("Incorrect username or password.");
   }
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) {
-    return res.status(400).send("Incorrect username or password.");
+    return res.send("Incorrect username or password.");
   }
   try {
     const token = await user.generateAuthToken();
@@ -96,7 +92,7 @@ router.patch("/user/edit", auth, async (req, res) => {
   });
 
   if (!isValidOperation) {
-    return res.status(400).send("Invalid Updates");
+    return res.send("Invalid Updates");
   }
 
   userUpdating.forEach((update) => {
@@ -117,7 +113,7 @@ router.delete("/user/delete-account", auth, async (req, res) => {
     const password = req.body.password;
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      return res.status(400).send("Incorrect password");
+      return res.send("Incorrect password");
     }
     await user.remove();
     res.send("Your account is deleted permanently.");

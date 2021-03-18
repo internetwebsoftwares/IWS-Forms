@@ -67,6 +67,7 @@ router.post("/form/:id/answer", auth, async (req, res) => {
 router.get("/form/all/:pageNo", auth, async (req, res) => {
   try {
     const forms = await Form.find({ ownerId: req.user._id.toString() })
+      .sort({ createdAt: "-1" })
       .limit(10)
       .skip(parseInt(req.params.pageNo * 10));
     res.send(forms);

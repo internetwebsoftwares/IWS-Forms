@@ -107,6 +107,8 @@ router.patch("/form/:id/accepting-responses", auth, async (req, res) => {
       return res.send("This form is not created by you.");
     }
     form.isAcceptingResponses = `${form.isAcceptingResponses ? false : true}`;
+    await form.save();
+    res.send(`Form is accepting responses: ${form.isAcceptingResponses}`);
   } catch (error) {
     console.log(error);
   }

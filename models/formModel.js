@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 const formSchema = new mongoose.Schema(
   {
-    formUrl: {
-      type: String,
-      required: true,
-    },
     isAcceptingResponses: {
       type: Boolean,
       default: true,

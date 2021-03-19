@@ -13,10 +13,8 @@ router.post("/new-form", auth, async (req, res) => {
       ownerName: req.user.username,
       ownerId: req.user._id,
     });
-
-    form.formUrl = `${process.env.domain}/form/${form._id}`;
     await form.save();
-    res.send("Form created");
+    res.send(form._id);
   } catch (error) {
     console.log(error);
   }

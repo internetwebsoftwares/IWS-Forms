@@ -5,6 +5,10 @@ const formSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isAcceptingResponses: {
+      type: Boolean,
+      default: true,
+    },
     formName: {
       type: String,
       required: true,

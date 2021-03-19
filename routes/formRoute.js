@@ -36,6 +36,10 @@ router.post("/form/:id/answer", auth, async (req, res) => {
 
     const form = await Form.findById(req.params.id);
 
+    if (!form.isAcceptingResponses) {
+      return res.send("Form is no longer accepting responses.");
+    }
+
     const totalQuestions = form.questions.length;
 
     const answer = await Answer({
@@ -86,6 +90,42 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
       .limit(10)
       .skip(parseInt(req.params.pageNo * 10));
     res.send(answers);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Stop/Start accepting responses
+router.patch("/form/:id/accepting-responses", auth, async (req, res) => {
+  try {
+    const form = await Form.findOne({
+      _id: req.params.id,
+      ownerId: req.user._id,
+    });
+
+    if (!form) {
+      return res.send("This form is not created by you.");
+    }
+    form.isAcceptingResponses = `${form.isAcceptingResponses ? false : true}`;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Delete a form
+router.delete("/form/:id/delete", auth, async (req, res) => {
+  try {
+    const form = await Form.findOne({
+      _id: req.params.id,
+      ownerId: req.user._id,
+    });
+
+    if (!form) {
+      return res.send("This form is not created by you.");
+    }
+
+    await form.delete();
+    res.send("Form deleted.");
   } catch (error) {
     console.log(error);
   }

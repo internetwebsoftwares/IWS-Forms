@@ -19,14 +19,15 @@ const userSchema = new mongoose.Schema(
       required: true,
       minLength: 7,
     },
-    isVerified: {
+    country: {
+      type: String,
+      required: true,
+    },
+    isAdmin: {
       type: Boolean,
       default: false,
     },
-    totalForms: {
-      type: Number,
-      default: 0,
-    },
+    Notifications: [],
     tokens: [
       {
         token: {

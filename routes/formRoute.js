@@ -15,7 +15,7 @@ router.post("/new-form", auth, async (req, res) => {
       ownerId: req.user._id,
     });
     await form.save();
-    res.send(form._id);
+    res.send({ formId: form._id });
   } catch (error) {
     console.log(error);
   }

@@ -7,9 +7,9 @@ const { superCheck } = require("../simplepasswordChecker.js");
 
 //Create user (Sign up)
 router.post("/sign-up", async (req, res) => {
-  let { username, email, password } = req.body;
+  let { username, email, country, password } = req.body;
   //Check all fields are filled
-  if (!username || !email || !password) {
+  if (!username || !email || !password || !country) {
     return res.send("All fields are required.");
   }
   //Check if username is not too short
@@ -26,6 +26,10 @@ router.post("/sign-up", async (req, res) => {
   if (!isEmail(email)) {
     return res.send("Please enter valid email address.");
   }
+  //Check if country
+  if (!country) {
+    return res.send("Please enter country name.");
+  }
 
   //Check if password is not short & contains a symbol a number
   if (!superCheck(password, 7)) {
@@ -37,6 +41,7 @@ router.post("/sign-up", async (req, res) => {
     const user = new User({
       username,
       email,
+      country,
       password,
     });
     const token = await user.generateAuthToken();

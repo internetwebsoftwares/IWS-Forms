@@ -5,11 +5,12 @@ const Answer = require("../models/answerModel");
 
 //Create form
 router.post("/new-form", auth, async (req, res) => {
-  let { questions, formName } = req.body;
+  let { questions, formName, institutionName } = req.body;
   try {
     const form = new Form({
       questions,
       formName,
+      institutionName,
       ownerName: req.user.username,
       ownerId: req.user._id,
     });

@@ -9,6 +9,10 @@ const formSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    institutionName: {
+      type: String,
+      required: true,
+    },
     questions: [],
     ownerName: {
       type: String,

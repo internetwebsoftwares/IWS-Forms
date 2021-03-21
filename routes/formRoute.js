@@ -61,7 +61,9 @@ router.post("/form/:id/answer", auth, async (req, res) => {
     }
 
     answer.answers = answers;
+    form.alreadySubmitted.push(req.user._id.toString());
 
+    await form.save();
     await answer.save();
     res.send("Answer submitted");
   } catch (error) {

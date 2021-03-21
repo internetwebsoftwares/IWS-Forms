@@ -55,7 +55,7 @@ router.post("/form/:id/answer", auth, async (req, res) => {
 
     for (let i = 0; i < totalQuestions; i++) {
       answers.push({
-        question: form.questions[i],
+        question: form.questions[i].question,
         answer: answersByUser[i],
       });
     }

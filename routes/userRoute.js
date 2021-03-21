@@ -109,7 +109,34 @@ router.patch("/user/edit", auth, async (req, res) => {
   res.status(200).send(user);
 });
 
-module.exports = router;
+//Change password
+router.patch("/user/change-password", auth, async (req, res) => {
+  let { currentPassword, newPassword } = req.body;
+
+  try {
+    const user = req.user;
+    const isPasswordCorrect = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+
+    if (!isPasswordCorrect) {
+      return res.send("Current password is incorrect.");
+    }
+
+    if (!superCheck(newPassword, 7)) {
+      return res.send(
+        "Password must contains a symbol a number and must be of atlest 7 digits"
+      );
+    }
+
+    await user.save();
+
+    res.send("Password changed successfully.");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 //Delete account
 router.delete("/user/delete-account", auth, async (req, res) => {
@@ -140,3 +167,5 @@ router.post("/user/logout", auth, async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+module.exports = router;

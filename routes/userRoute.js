@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/userModel");
+const Form = require("../models/formModel");
+const Answer = require("../models/answerModel");
 const auth = require("../middleware/auth");
 const isEmail = require("validator/lib/isEmail");
 const bcrypt = require("bcryptjs");
@@ -142,10 +144,18 @@ router.patch("/user/change-password", auth, async (req, res) => {
 router.delete("/user/delete-account", auth, async (req, res) => {
   try {
     const user = req.user;
+    const forms = await Form.find({ ownerId: user._id });
+    const answers = await Answer.find({ postedById: user._id });
     const password = req.body.password;
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       return res.send("Incorrect password");
+    }
+    for (let form of forms) {
+      await form.remove();
+    }
+    for (let answer of answers) {
+      await answer.remove();
     }
     await user.remove();
     res.send("Your account is deleted permanently.");

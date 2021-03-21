@@ -22,7 +22,7 @@ router.post("/new-form", auth, async (req, res) => {
 });
 
 //Read a form
-router.get("/form/:id", async (req, res) => {
+router.get("/form/:id/", async (req, res) => {
   const form = await Form.findById(req.params.id);
   if (!form) {
     return res.send("Form not found");

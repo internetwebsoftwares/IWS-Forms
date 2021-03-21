@@ -13,6 +13,7 @@ const formSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    alreadySubmitted: [],
     questions: [],
     ownerName: {
       type: String,

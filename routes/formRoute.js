@@ -100,6 +100,21 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
   }
 });
 
+router.get("/form/:id/answer", auth, async (req, res) => {
+  try {
+    const form = await Form.findOne({
+      _id: req.params.id,
+      formOwnedBy: req.user._id,
+    });
+    if (!form) {
+      return res.send("No form found");
+    }
+    res.send(form);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //Stop/Start accepting responses
 router.patch("/form/:id/accepting-responses", auth, async (req, res) => {
   try {

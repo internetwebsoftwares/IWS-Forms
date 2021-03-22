@@ -21,6 +21,14 @@ const answerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isChecked: {
+      type: Boolean,
+      default: false,
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
     answers: [],
   },
   { timestamps: true }

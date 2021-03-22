@@ -102,14 +102,14 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
 
 router.get("/form/:id/answer", auth, async (req, res) => {
   try {
-    const form = await Form.findOne({
+    const answer = await Answer.findOne({
       _id: req.params.id,
       formOwnedBy: req.user._id,
     });
-    if (!form) {
-      return res.send("No form found");
+    if (!answer) {
+      return res.send("No answer found");
     }
-    res.send(form);
+    res.send(answer);
   } catch (error) {
     console.log(error);
   }

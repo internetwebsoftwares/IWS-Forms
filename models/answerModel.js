@@ -25,6 +25,10 @@ const answerSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isThisExaminationForm: {
+      type: Boolean,
+      default: false,
+    },
     score: {
       type: String,
       default: "null",

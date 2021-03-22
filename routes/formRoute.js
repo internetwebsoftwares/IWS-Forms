@@ -50,6 +50,7 @@ router.post("/form/:id/answer", auth, async (req, res) => {
       postedById: user._id,
       postedByUsername: user.username,
       formOwnedBy: form.ownerId,
+      isThisExaminationForm: form.isThisExaminationForm,
     });
 
     let answers = [];
@@ -85,7 +86,7 @@ router.get("/form/all/:pageNo", auth, async (req, res) => {
   }
 });
 
-//Read answers on a form
+//Read all answers on a form
 router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
   try {
     const answers = await Answer.find({
@@ -100,6 +101,7 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
   }
 });
 
+//Read one answer
 router.get("/answer/:id/answer", auth, async (req, res) => {
   try {
     const answer = await Answer.findOne({

@@ -14,6 +14,10 @@ const formSchema = new mongoose.Schema(
       required: true,
     },
     alreadySubmitted: [],
+    isThisExaminationForm: {
+      type: Boolean,
+      default: false,
+    },
     questions: [],
     ownerName: {
       type: String,

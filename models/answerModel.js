@@ -30,8 +30,8 @@ const answerSchema = new mongoose.Schema(
       default: false,
     },
     score: {
-      type: String,
-      default: "null",
+      type: Number,
+      default: 0,
     },
     answers: [],
   },

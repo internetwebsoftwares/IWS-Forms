@@ -100,7 +100,7 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
   }
 });
 
-router.get("/form/:id/answer", auth, async (req, res) => {
+router.get("/answer/:id/answer", auth, async (req, res) => {
   try {
     const answer = await Answer.findOne({
       _id: req.params.id,

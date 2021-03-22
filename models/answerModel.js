@@ -17,6 +17,10 @@ const answerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    formName: {
+      type: String,
+      required: true,
+    },
     answers: [],
   },
   { timestamps: true }

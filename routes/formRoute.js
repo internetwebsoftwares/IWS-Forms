@@ -45,6 +45,7 @@ router.post("/form/:id/answer", auth, async (req, res) => {
     const totalQuestions = form.questions.length;
 
     const answer = await Answer({
+      formName: form.formName;
       postedOnId: req.params.id,
       postedById: user._id,
       postedByUsername: user.username,

@@ -13,9 +13,6 @@ mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
   useNewUrlParser: true,
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
@@ -25,6 +22,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(useRoute);
 app.use(formRoute);

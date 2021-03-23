@@ -127,8 +127,8 @@ router.get("/answer/:id/answer", auth, async (req, res) => {
 });
 
 //Check the answers
-router.patch("/answer/:id/check", auth, async (req, res) => {
-  let totalMarks = req.body.totalMarks;
+router.patch("/answer/:id/check-answer", auth, async (req, res) => {
+  let {totalMarks} = req.body;
   try {
     const answer = await Answer.findOne({
       _id: req.params.id,

@@ -5,8 +5,8 @@ const formSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    outOfMark:{
-    	type: Number
+    outOfMark: {
+      type: Number,
     },
     formName: {
       type: String,

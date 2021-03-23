@@ -126,6 +126,26 @@ router.get("/answer/:id/answer", auth, async (req, res) => {
   }
 });
 
+//Check the answers
+router.patch("/answer/:id/check", auth, async (req, res) => {
+  let outOfMarks = req.body.outOfMarks;
+  try {
+    const answer = await Answer.findOne({
+      _id: req.params.id,
+      formOwnedBy: req.user._id.toString(),
+    });
+    if (!form) {
+      return res.send("No form found");
+    }
+    answer.isChecked = true;
+    answer.outOfMarks = outOfMarks;
+    await answer.save();
+    res.send("Answer checked");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //Stop/Start accepting responses
 router.patch("/form/:id/accepting-responses", auth, async (req, res) => {
   try {

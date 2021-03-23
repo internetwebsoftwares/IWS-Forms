@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 4000;
+const cors = require("cors");
 const useRoute = require("./routes/userRoute");
 const formRoute = require("./routes/formRoute");
 const answerRoute = require("./routes/answerRoute");
@@ -13,15 +14,12 @@ mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
   useNewUrlParser: true,
 });
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE");
-    return res.status(200).send({});
-  }
-  next();
-});
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

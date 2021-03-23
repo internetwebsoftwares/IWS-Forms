@@ -79,7 +79,7 @@ router.get("/answer/:id/answer", auth, async (req, res) => {
 });
 
 // Check the answers
-router.post("/answer/:id/check", auth, async (req, res) => {
+router.patch("/answer/:id/check", auth, async (req, res) => {
   let { totalMarks } = req.body;
   try {
     const answer = await Answer.findOne({

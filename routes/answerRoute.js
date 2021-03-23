@@ -86,7 +86,7 @@ router.post("/answer/:id/check", auth, async (req, res) => {
       _id: req.params.id,
       formOwnedBy: req.user._id.toString(),
     });
-    if (!form) {
+    if (!answer) {
       return res.send("No form found");
     }
     answer.isChecked = true;

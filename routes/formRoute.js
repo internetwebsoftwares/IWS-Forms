@@ -128,7 +128,7 @@ router.get("/answer/:id/answer", auth, async (req, res) => {
 
 //Check the answers
 router.patch("/answer/:id/check", auth, async (req, res) => {
-  let outOfMarks = req.body.outOfMarks;
+  let totalMarks = req.body.totalMarks;
   try {
     const answer = await Answer.findOne({
       _id: req.params.id,
@@ -138,7 +138,7 @@ router.patch("/answer/:id/check", auth, async (req, res) => {
       return res.send("No form found");
     }
     answer.isChecked = true;
-    answer.outOfMarks = outOfMarks;
+    answer.score = totalMarks;
     await answer.save();
     res.send("Answer checked");
   } catch (error) {

@@ -5,7 +5,13 @@ const Answer = require("../models/answerModel");
 
 //Create form
 router.post("/new-form", auth, async (req, res) => {
-  let { questions, formName, institutionName } = req.body;
+  let {
+    questions,
+    formName,
+    institutionName,
+    isThisExaminationForm,
+    outOfMarks,
+  } = req.body;
   try {
     const form = new Form({
       questions,
@@ -13,6 +19,8 @@ router.post("/new-form", auth, async (req, res) => {
       institutionName,
       ownerName: req.user.username,
       ownerId: req.user._id,
+      isThisExaminationForm,
+      outOfMarks,
     });
     await form.save();
     res.send({ formId: form._id });
@@ -51,6 +59,7 @@ router.post("/form/:id/answer", auth, async (req, res) => {
       postedByUsername: user.username,
       formOwnedBy: form.ownerId,
       isThisExaminationForm: form.isThisExaminationForm,
+      outOfMarks: form.outOfMarks,
     });
 
     let answers = [];

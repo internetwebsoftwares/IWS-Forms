@@ -18,6 +18,9 @@ const formSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    outOfMarks: {
+      type: Number,
+    },
     questions: [],
     ownerName: {
       type: String,

@@ -29,6 +29,9 @@ const answerSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    outOfMarks: {
+      type: Number,
+    },
     score: {
       type: Number,
       default: 0,

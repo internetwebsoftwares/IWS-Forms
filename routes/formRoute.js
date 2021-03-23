@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const auth = require("../middleware/auth");
 const Form = require("../models/formModel");
-const Answer = require("../models/answerModel");
 
 //Create form
 router.post("/new-form", auth, async (req, res) => {

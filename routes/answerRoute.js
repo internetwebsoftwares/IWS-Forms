@@ -75,24 +75,24 @@ router.get("/answer/:id/answer", auth, async (req, res) => {
   }
 });
 
-//Check the answers
-// router.patch("/answer/:id/check", auth, async (req, res) => {
-//   let { totalMarks } = req.body;
-//   try {
-//     const answer = await Answer.findOne({
-//       _id: req.params.id,
-//       formOwnedBy: req.user._id.toString(),
-//     });
-//     if (!form) {
-//       return res.send("No form found");
-//     }
-//     answer.isChecked = true;
-//     answer.score = totalMarks;
-//     await answer.save();
-//     res.send("Answer checked");
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+// Check the answers
+router.patch("/answer/:id/check", auth, async (req, res) => {
+  let { totalMarks } = req.body;
+  try {
+    const answer = await Answer.findOne({
+      _id: req.params.id,
+      formOwnedBy: req.user._id.toString(),
+    });
+    if (!form) {
+      return res.send("No form found");
+    }
+    answer.isChecked = true;
+    answer.score = totalMarks;
+    await answer.save();
+    res.send("Answer checked");
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;

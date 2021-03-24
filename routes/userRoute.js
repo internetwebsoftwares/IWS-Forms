@@ -58,6 +58,26 @@ router.post("/sign-up", async (req, res) => {
   }
 });
 
+//Read all users
+router.get("/users/all/:pageNo", auth, async (req, res) => {
+  try {
+    const users = await User.find({})
+      .limit(10)
+      .skip(parseInt(req.params.pageNo));
+    if (!req.user.isAdmin) {
+      return res.send(
+        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidentail informations from our database. soon you will recieve calls from FBI.`
+      );
+    }
+    res.send({
+      totalUsers: users.length,
+      users,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //Sign in
 router.post("/login", async (req, res) => {
   let { email, password } = req.body;

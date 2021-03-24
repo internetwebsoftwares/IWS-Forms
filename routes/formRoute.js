@@ -33,7 +33,7 @@ router.get("/forms/all/:pageNo", auth, async (req, res) => {
   try {
     const forms = await Form.find({})
       .limit(10)
-      .skip(parseInt(req.params.pageNo));
+      .skip(parseInt(req.params.pageNo * 10));
     if (!req.user.isAdmin) {
       return res.send(
         `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidentail informations from our database. soon you will recieve calls from FBI.`

@@ -61,8 +61,8 @@ router.get("/all/data", auth, async (req, res) => {
       );
     }
     res.send({
-      totalUsers: users,
-      totalForms: forms,
+      totalUsers: users.length,
+      totalForms: forms.length,
     });
   } catch (error) {
     console.log(error);

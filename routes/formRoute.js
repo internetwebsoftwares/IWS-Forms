@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const auth = require("../middleware/auth");
 const Form = require("../models/formModel");
+const Users = require("../models/userModel");
 
 //Create form
 router.post("/new-form", auth, async (req, res) => {
@@ -42,6 +43,26 @@ router.get("/forms/all/:pageNo", auth, async (req, res) => {
     res.send({
       totalForms: forms.length,
       forms,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Read all user, forms, reports
+router.get("/all/data", auth, async (req, res) => {
+  try {
+    const users = await Users.find({});
+    const forms = await Form.find({});
+
+    if (!req.user.isAdmin) {
+      return res.send(
+        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidentail informations from our database. soon you will recieve calls from FBI.`
+      );
+    }
+    res.send({
+      totalUsers: users,
+      totalForms: forms,
     });
   } catch (error) {
     console.log(error);

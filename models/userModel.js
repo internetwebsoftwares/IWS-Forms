@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       minLength: 7,
     },
+    totalForms: {
+      type: Number,
+      default: 0,
+    },
     country: {
       type: String,
       required: true,
@@ -27,7 +31,7 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    Notifications: [],
+    notifications: [],
     tokens: [
       {
         token: {

@@ -7,6 +7,7 @@ const cors = require("cors");
 const useRoute = require("./routes/userRoute");
 const formRoute = require("./routes/formRoute");
 const answerRoute = require("./routes/answerRoute");
+const reportRoute = require("./routes/reportRoute");
 
 mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
   useCreateIndex: true,
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(useRoute);
 app.use(formRoute);
 app.use(answerRoute);
+app.use(reportRoute);
 
 app.listen(PORT, () => {
   console.log(`localhost:${PORT}`);

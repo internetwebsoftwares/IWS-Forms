@@ -54,7 +54,7 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
       postedOnId: req.params.id.toString(),
       formOwnedBy: req.user._id.toString(),
     })
-      .limit(10)
+      .limit(1)
       .skip(parseInt(req.params.pageNo * 1));
     res.send(answers);
   } catch (error) {

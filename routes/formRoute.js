@@ -22,6 +22,8 @@ router.post("/new-form", auth, async (req, res) => {
       isThisExaminationForm,
       outOfMarks,
     });
+    req.user.totalForms++;
+    await req.user.save()
     await form.save();
     res.send({ formId: form._id });
   } catch (error) {
@@ -121,7 +123,8 @@ router.delete("/form/:id/delete", auth, async (req, res) => {
     if (!form) {
       return res.send("This form is not created by you.");
     }
-
+    req.user.totalForms--;
+    await req.user.save()
     await form.delete();
     res.send("Form deleted.");
   } catch (error) {

@@ -80,7 +80,7 @@ router.get("/answer/:id/answer", auth, async (req, res) => {
 
 // Check the answers
 router.put("/answer/:id/check", auth, async (req, res) => {
-  let { totalMarks, remarks } = req.body;
+  let { totalMarks, remark } = req.body;
   try {
     const answer = await Answer.findOne({
       _id: req.params.id,
@@ -91,7 +91,7 @@ router.put("/answer/:id/check", auth, async (req, res) => {
     }
     answer.isChecked = true;
     answer.score = totalMarks;
-    answer.remarks = remarks;
+    answer.remark = remark;
     await answer.save();
     res.send("Answer checked");
   } catch (error) {

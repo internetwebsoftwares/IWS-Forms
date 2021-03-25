@@ -91,6 +91,7 @@ router.put("/answer/:id/check", auth, async (req, res) => {
     }
     answer.isChecked = true;
     answer.score = totalMarks;
+    answer.remarks = remarks;
     await answer.save();
     res.send("Answer checked");
   } catch (error) {

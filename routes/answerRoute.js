@@ -80,7 +80,7 @@ router.get("/answer/:id/answer", auth, async (req, res) => {
 
 // Check the answers
 router.put("/answer/:id/check", auth, async (req, res) => {
-  let { totalMarks } = req.body;
+  let { totalMarks, remarks } = req.body;
   try {
     const answer = await Answer.findOne({
       _id: req.params.id,

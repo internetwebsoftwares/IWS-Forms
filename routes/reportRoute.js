@@ -77,4 +77,4 @@ router.delete("/report/:formId/delete-admin", auth, async (req, res) => {
   }
 });
 
-module.exports = route;
+module.exports = router;

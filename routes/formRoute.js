@@ -2,6 +2,7 @@ const router = require("express").Router();
 const auth = require("../middleware/auth");
 const Form = require("../models/formModel");
 const Users = require("../models/userModel");
+const Report = require("../models/reportModel");
 
 //Create form
 router.post("/new-form", auth, async (req, res) => {
@@ -56,6 +57,7 @@ router.get("/all/data", auth, async (req, res) => {
   try {
     const users = await Users.find({});
     const forms = await Form.find({});
+    const reports = await Report.find({});
 
     if (!req.user.isAdmin) {
       return res.send(
@@ -65,6 +67,7 @@ router.get("/all/data", auth, async (req, res) => {
     res.send({
       totalUsers: users.length,
       totalForms: forms.length,
+      totalReports: reports.length,
     });
   } catch (error) {
     console.log(error);

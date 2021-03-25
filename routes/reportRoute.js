@@ -1,11 +1,11 @@
-const route = require("express").Router();
+const router = require("express").Router();
 const auth = require("../middleware/auth");
 const Form = require("../models/formModel");
 const Users = require("../models/userModel");
 const Report = require("../models/reportModel");
 
 //Create report
-route.post("/report/:formId/add", auth, async (req, res) => {
+router.post("/report/:formId/add", auth, async (req, res) => {
   const form = await Form.findById(req.params.formId);
   if (!form) {
     return res.send("No form found");
@@ -27,7 +27,7 @@ route.post("/report/:formId/add", auth, async (req, res) => {
 });
 
 //Read all reports
-route.get("/report/all-reports/:pageNo", auth, async (req, res) => {
+router.get("/report/all-reports/:pageNo", auth, async (req, res) => {
   try {
     if (!req.user.admin) {
       return res.send(

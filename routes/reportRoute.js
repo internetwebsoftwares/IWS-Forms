@@ -16,7 +16,7 @@ router.post("/report/:formId/add", auth, async (req, res) => {
       reportedByUsername: req.user.username,
       reportedOnFormId: req.params.formId,
       reportedOnFormName: form.formName,
-      formOwnerId,
+      formOwnerId: form.formOwnerId,
     });
 
     await report.save();

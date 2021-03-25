@@ -32,6 +32,9 @@ const answerSchema = new mongoose.Schema(
     outOfMarks: {
       type: Number,
     },
+    remark: {
+      type: String,
+    },
     score: {
       type: Number,
       default: 0,

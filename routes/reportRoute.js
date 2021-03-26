@@ -32,7 +32,7 @@ router.post("/report/:formId/add", auth, async (req, res) => {
 //Read all reports
 router.get("/report/all-reports/:pageNo", auth, async (req, res) => {
   try {
-    if (!req.user.admin) {
+    if (!req.user.isAdmin) {
       return res.send(
         "Poor hacker don't try to steal our information next time."
       );
@@ -56,7 +56,7 @@ router.delete("/report/:formId/delete-admin", auth, async (req, res) => {
       reportedOnFormId: req.params.formId,
     });
 
-    if (!req.user.admin) {
+    if (!req.user.isAdmin) {
       return res.send("You dont have this permission");
     }
 

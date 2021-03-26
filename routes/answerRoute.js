@@ -53,13 +53,11 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
     const answers = await Answer.find({
       postedOnId: req.params.id.toString(),
       formOwnedBy: req.user._id.toString(),
-    });
-    const totalAnswer = answers.length;
-    answers.limit(10).skip(parseInt(req.params.pageNo * 10));
-    res.send({
-      answers,
-      totalAnswer,
-    });
+    })
+      .limit(10)
+      .skip(parseInt(req.params.pageNo * 10));
+
+    res.send(answers);
   } catch (error) {
     console.log(error);
   }

@@ -19,6 +19,9 @@ router.post("/report/:formId/add", auth, async (req, res) => {
       formOwnerId: form.ownerId,
     });
 
+    form.reportedBy.push(req.user._id);
+
+    await form.save();
     await report.save();
     res.send("Report created");
   } catch (error) {

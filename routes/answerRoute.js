@@ -57,7 +57,7 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
     const totalAnswer = answers.length;
     answers.limit(10).skip(parseInt(req.params.pageNo * 10));
     res.send({
-      answer,
+      answers,
       totalAnswer,
     });
   } catch (error) {

@@ -6,11 +6,11 @@ const Report = require("../models/reportModel");
 
 //Create report
 router.post("/report/:formId/add", auth, async (req, res) => {
-  const form = await Form.findById(req.params.formId);
-  if (!form) {
-    return res.send("No form found");
-  }
   try {
+    const form = await Form.findById(req.params.formId);
+    if (!form) {
+      return res.send("No form found");
+    }
     const report = new Report({
       reportedById: req.user._id,
       reportedByUsername: req.user.username,

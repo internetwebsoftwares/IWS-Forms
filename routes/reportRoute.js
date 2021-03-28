@@ -52,7 +52,7 @@ router.delete("/report/:formId/delete-admin", auth, async (req, res) => {
   try {
     const form = await Form.findById(req.params.id);
     const user = await Users.findOne({ _id: form.ownerId });
-    const reporters = await Report.find({
+    const reports = await Report.find({
       reportedOnFormId: req.params.formId,
     });
 
@@ -66,7 +66,9 @@ router.delete("/report/:formId/delete-admin", auth, async (req, res) => {
       title: "Your form is deleted by Us",
       message: `Your form ${formName} is deleted after manual investigation, The form did not follow our guidelines`,
     });
-    reporters.forEach((reporter) => {
+
+    reports.forEach((report) => {
+      let reporter = await Users.findById(report.reportedById);
       reporter.totalNotifications++;
       reporter.notifications.push({
         title: `${form.formName} has been deleted by us.`,

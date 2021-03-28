@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
     totalNotifications: {
-      type: String,
+      type: Number,
       default: 0,
     },
     notifications: [],

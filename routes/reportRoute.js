@@ -67,6 +67,7 @@ router.delete("/report/:formId/delete-admin", auth, async (req, res) => {
       message: `Your form ${formName} is deleted after manual investigation, The form did not follow our guidelines`,
     });
     reporters.forEach((reporter) => {
+      reporter.totalNotifications++;
       reporter.notifications.push({
         title: `${form.formName} has been deleted by us.`,
         message: `Thanks for your report the has been deleted successfully & keep reporting us if you found anything on the plartform & keep our community clean, again on behalf of our CEO THANKYOU :)`,

@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    totalNotifications: {
+      type: String,
+      default: 0,
+    },
     notifications: [],
     tokens: [
       {

@@ -199,7 +199,7 @@ router.post("/user/logout", auth, async (req, res) => {
 });
 
 //Read notifications
-router.get("/user/notifications", auth, async (req, res) => {
+router.get("/user/notifications/notification", auth, async (req, res) => {
   try {
     const user = req.user;
     user.totalNotifications = 0;

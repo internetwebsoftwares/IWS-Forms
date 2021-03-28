@@ -201,8 +201,10 @@ router.post("/user/logout", auth, async (req, res) => {
 //Read notifications
 router.get("/user/notifications", auth, async (req, res) => {
   try {
-    const notifications = req.user.notifications;
-    res.send(notifications);
+    const user = req.user;
+    user.totalNotifications = 0;
+    await user.save();
+    res.send(user.notifications);
   } catch (error) {
     console.log(error);
   }

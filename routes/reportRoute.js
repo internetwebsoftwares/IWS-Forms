@@ -68,7 +68,7 @@ router.delete("/report/:formId/delete-admin", auth, async (req, res) => {
     });
 
     reports.forEach((report) => {
-      let reporter = await Users.findById(report.reportedById);
+      const reporter = await Users.findById(report.reportedById.toString());
       reporter.totalNotifications++;
       reporter.notifications.push({
         title: `${form.formName} has been deleted by us.`,

@@ -50,7 +50,7 @@ router.get("/report/all-reports/:pageNo", auth, async (req, res) => {
 //Delete form because of reports
 router.delete("/report/:formId/delete", auth, async (req, res) => {
   try {
-    const form = await Form.findById(req.params.id);
+    const form = await Form.findById(req.params.formId);
     const user = await Users.findOne({ _id: form.ownerId });
     const reports = await Report.find({
       reportedOnFormId: req.params.formId,

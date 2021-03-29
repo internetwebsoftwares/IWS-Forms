@@ -77,7 +77,7 @@ router.delete("/report/:formId/delete", auth, async (req, res) => {
       await reporter.save();
     });
     await user.save();
-    await form.delete();
+    await form.remove();
     res.send("Form deleted by admin.");
   } catch (error) {
     console.log(error);

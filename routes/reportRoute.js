@@ -64,7 +64,7 @@ router.delete("/report/:formId/delete", auth, async (req, res) => {
     user.totalNotifications++;
     user.notifications.push({
       title: "Your form is deleted by Us",
-      message: `Your form ${formName} is deleted after manual investigation, The form did not follow our guidelines`,
+      message: `Your form ${form.formName} is deleted after manual investigation, The form did not follow our guidelines`,
     });
 
     reports.forEach(async (report) => {

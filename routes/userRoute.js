@@ -112,7 +112,7 @@ router.get("/user/:id", async (req, res) => {
 //Update user profile
 router.patch("/user/edit", auth, async (req, res) => {
   const user = req.user;
-  const updatesAvailable = ["username", "country"];
+  const updatesAvailable = ["username", "country", "notifications"];
   const userUpdating = Object.keys(req.body);
   const isValidOperation = userUpdating.every((update) => {
     return updatesAvailable.includes(update);

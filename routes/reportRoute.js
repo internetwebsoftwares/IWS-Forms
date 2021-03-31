@@ -63,6 +63,7 @@ router.delete("/report/:formId/delete", auth, async (req, res) => {
     user.totalForms--;
     user.totalNotifications++;
     user.notifications.push({
+      isRead: false,
       title: "Your form is deleted by Us",
       message: `Your form ${form.formName} is deleted after manual investigation, The form did not follow our guidelines`,
     });
@@ -71,10 +72,12 @@ router.delete("/report/:formId/delete", auth, async (req, res) => {
       const reporter = await Users.findById(report.reportedById);
       reporter.totalNotifications++;
       reporter.notifications.push({
+        isRead: false,
         title: `${form.formName} has been deleted by us.`,
-        message: `Thanks for your report the has been deleted successfully & keep reporting us if you found anything on the plartform & keep our community clean, again on behalf of our CEO THANKYOU :)`,
+        message: `Thanks for your report the form ${form.formName} has been deleted by us successfully. Keep reporting us if you find anything wrong on the plartform & keep our community clean, again on behalf of our CEO Ata Shaikh THANKYOU :)`,
       });
       await reporter.save();
+      await report.remove();
     });
     await user.save();
     await form.remove();

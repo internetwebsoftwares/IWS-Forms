@@ -210,4 +210,39 @@ router.get("/user/notifications/notification", auth, async (req, res) => {
   }
 });
 
+//Search users by usersname
+router.get(`/user/admin/search/by-username`, auth, async (req, res) => {
+  let { searchQuery } = req.body;
+  try {
+    if (!req.user.isAdmin) {
+      return res.send(
+        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
+      );
+    }
+    const users = await User.find();
+    const filteredUsers = users.filter((user) =>
+      user.username.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    res.send(filteredUsers);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//Search users by id
+router.get(`/user/admin/search/by-id`, auth, async (req, res) => {
+  let { searchQuery } = req.body;
+  try {
+    if (!req.user.isAdmin) {
+      return res.send(
+        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
+      );
+    }
+    const user = await User.findOne({ _id: searchQuery });
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;

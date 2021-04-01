@@ -40,7 +40,7 @@ router.get("/forms/all/:pageNo", auth, async (req, res) => {
       .skip(parseInt(req.params.pageNo * 10));
     if (!req.user.isAdmin) {
       return res.send(
-        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidentail informations from our database. soon you will recieve calls from FBI.`
+        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
       );
     }
     res.send(forms);
@@ -58,7 +58,7 @@ router.get("/all/data", auth, async (req, res) => {
 
     if (!req.user.isAdmin) {
       return res.send(
-        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidentail informations from our database. soon you will recieve calls from FBI.`
+        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
       );
     }
     res.send({
@@ -129,6 +129,22 @@ router.delete("/form/:id/delete", auth, async (req, res) => {
     res.send("Form deleted.");
   } catch (error) {
     console.log(error);
+  }
+});
+
+//Search form
+router.get(`/form/admin/search`, auth, async (req, res) => {
+  let { searchQuery } = req.body;
+  try {
+    if (!req.user.isAdmin) {
+      return res.send(
+        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
+      );
+    }
+    const form = await Form.findOne({ _id: searchQuery });
+    res.send(form);
+  } catch (error) {
+    res.send(error);
   }
 });
 

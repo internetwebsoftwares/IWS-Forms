@@ -73,7 +73,6 @@ router.delete("/report/:formId/delete", auth, async (req, res) => {
       const reporter = await Users.findById(report.reportedById);
       reporter.totalNotifications++;
       reporter.notifications.push({
-        isRead: false,
         title: `${form.formName} has been deleted by us.`,
         message: `Thanks for your report the form ${form.formName} has been deleted by us successfully. Keep reporting us if you find anything wrong on the plartform & keep our community clean, again on behalf of our CEO Ata Shaikh THANKYOU :)`,
         createdAt: new Date().getTime(),
@@ -85,7 +84,23 @@ router.delete("/report/:formId/delete", auth, async (req, res) => {
     await form.remove();
     res.send("Form deleted by admin.");
   } catch (error) {
-    console.log(error);
+    res.send(error);
+  }
+});
+
+//Search report
+router.get(`/report/admin/search`, auth, async (req, res) => {
+  let { searchQuery } = req.body;
+  try {
+    if (!req.user.isAdmin) {
+      return res.send(
+        `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
+      );
+    }
+    const report = await Report.findOne({ reportedOnFormId: searchQuery });
+    res.send(report);
+  } catch (error) {
+    res.send(error);
   }
 });
 

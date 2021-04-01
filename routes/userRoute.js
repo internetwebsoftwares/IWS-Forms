@@ -211,7 +211,7 @@ router.get("/user/notifications/notification", auth, async (req, res) => {
 });
 
 //Search users by usersname
-router.get(`/user/search/by-username`, auth, async (req, res) => {
+router.get(`/user/admin/search/by-username`, auth, async (req, res) => {
   let { searchQuery } = req.body;
   try {
     if (!req.user.isAdmin) {
@@ -230,7 +230,7 @@ router.get(`/user/search/by-username`, auth, async (req, res) => {
 });
 
 //Search users by id
-router.get(`/user/search/by-id`, auth, async (req, res) => {
+router.get(`/user/admin/search/by-id`, auth, async (req, res) => {
   let { searchQuery } = req.body;
   try {
     if (!req.user.isAdmin) {

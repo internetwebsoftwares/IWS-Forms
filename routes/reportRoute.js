@@ -90,14 +90,14 @@ router.delete("/report/:formId/delete", auth, async (req, res) => {
 
 //Search report
 router.get(`/report/admin/search`, auth, async (req, res) => {
-  let { searchQuery } = req.body;
+  let { formId } = req.body;
   try {
     if (!req.user.isAdmin) {
       return res.send(
         `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
       );
     }
-    const report = await Report.findOne({ reportedOnFormId: searchQuery });
+    const report = await Report.findOne({ reportedOnFormId: formId });
     res.send(report);
   } catch (error) {
     res.send(error);

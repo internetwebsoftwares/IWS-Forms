@@ -134,14 +134,14 @@ router.delete("/form/:id/delete", auth, async (req, res) => {
 
 //Search form
 router.get(`/form/admin/search`, auth, async (req, res) => {
-  let { searchQuery } = req.body;
+  let { formId } = req.body;
   try {
     if (!req.user.isAdmin) {
       return res.send(
         `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
       );
     }
-    const form = await Form.findOne({ _id: searchQuery });
+    const form = await Form.findOne({ _id: formId });
     res.send(form);
   } catch (error) {
     res.send(error);

@@ -134,7 +134,7 @@ router.delete("/form/:id/delete", auth, async (req, res) => {
 
 //Search form
 router.get(`/form/admin/search`, auth, async (req, res) => {
-  let { formId } = req.body;
+  let { formId } = req.query;
   try {
     if (!req.user.isAdmin) {
       return res.send(

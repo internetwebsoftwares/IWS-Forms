@@ -90,7 +90,7 @@ router.delete("/report/:formId/delete", auth, async (req, res) => {
 
 //Search report
 router.get(`/report/admin/search`, auth, async (req, res) => {
-  let { formId } = req.body;
+  let { formId } = req.query;
   try {
     if (!req.user.isAdmin) {
       return res.send(

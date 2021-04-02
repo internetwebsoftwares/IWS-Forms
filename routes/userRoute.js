@@ -212,7 +212,7 @@ router.get("/user/notifications/notification", auth, async (req, res) => {
 
 //Search users by usersname
 router.get(`/user/admin/search/by-username`, auth, async (req, res) => {
-  let { username } = req.body;
+  let { username } = req.query;
   try {
     if (!req.user.isAdmin) {
       return res.send(

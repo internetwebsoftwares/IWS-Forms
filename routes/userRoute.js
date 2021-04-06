@@ -231,7 +231,8 @@ router.get(`/user/admin/search/by-username`, auth, async (req, res) => {
 
 //Search users by id
 router.get(`/user/admin/search/by-id`, auth, async (req, res) => {
-  let { userId } = req.query;
+  // let { userId } = req.query;
+  let { userId } = req.body;
   try {
     if (!req.user.isAdmin) {
       return res.send(

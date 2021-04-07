@@ -11,6 +11,7 @@ router.post("/new-form", auth, async (req, res) => {
     formName,
     institutionName,
     isThisExaminationForm,
+    isPoll,
     outOfMarks,
   } = req.body;
   try {
@@ -18,6 +19,7 @@ router.post("/new-form", auth, async (req, res) => {
       questions,
       formName,
       institutionName,
+      isPoll,
       ownerName: req.user.username,
       ownerId: req.user._id,
       isThisExaminationForm,

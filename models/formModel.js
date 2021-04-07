@@ -18,6 +18,10 @@ const formSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isPoll: {
+      type: Boolean,
+      default: false,
+    },
     outOfMarks: {
       type: Number,
     },

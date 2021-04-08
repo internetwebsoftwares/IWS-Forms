@@ -63,6 +63,28 @@ router.get("/form/:id/:pageNo/answers", auth, async (req, res) => {
   }
 });
 
+//Read votes
+router.get("/vote/:id/results", auth, async (req, res) => {
+  try {
+    const answers = await Answer.find({
+      postedOnId: req.params.id.toString(),
+      formOwnedBy: req.user._id.toString(),
+    });
+    var votes = {};
+
+    answers.forEach((answer) => {
+      if (votes[answer.answers[0].answer]) votes[answer.answers[0].answer]++;
+      else {
+        votes[answer.answers[0].answer] = 1;
+      }
+    });
+
+    res.send(votes);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //Read one answer
 router.get("/answer/:id/answer", auth, async (req, res) => {
   try {

@@ -79,7 +79,7 @@ router.get("/vote/:id/results", auth, async (req, res) => {
       }
     });
 
-    res.send(votes);
+    res.send({ votes, formName: answers[0].formName });
   } catch (error) {
     console.log(error);
   }

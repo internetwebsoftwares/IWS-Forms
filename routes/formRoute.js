@@ -63,10 +63,21 @@ router.get("/all/data", auth, async (req, res) => {
         `Your IP Address ${req.connection.remoteAddress} have been traced you are trying to get confidential informations from our database. soon you will recieve calls from FBI.`
       );
     }
+
+    let worldWideUsers = {};
+
+    users.forEach((user) => {
+      if (worldWideUsers[user.country]) worldWideUsers[user.country]++;
+      else {
+        worldWideUsers[user.country] = 1;
+      }
+    });
+
     res.send({
       totalUsers: users.length,
       totalForms: forms.length,
       totalReports: reports.length,
+      worldWideUsers,
     });
   } catch (error) {
     console.log(error);

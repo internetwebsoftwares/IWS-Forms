@@ -71,7 +71,6 @@ router.get("/vote/:id/results", auth, async (req, res) => {
       formOwnedBy: req.user._id.toString(),
     });
     let votes = {};
-    let winnerObj = {};
     let mostVotes = 0;
     let winner = "";
 
@@ -88,6 +87,11 @@ router.get("/vote/:id/results", auth, async (req, res) => {
         winner = vote;
       }
     }
+
+    let winnerObj = {
+      winner,
+      mostVotes,
+    };
 
     res.send({ votes, formName: answers[0].formName, winnerObj });
   } catch (error) {

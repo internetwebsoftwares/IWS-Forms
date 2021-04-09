@@ -70,7 +70,10 @@ router.get("/vote/:id/results", auth, async (req, res) => {
       postedOnId: req.params.id.toString(),
       formOwnedBy: req.user._id.toString(),
     });
-    var votes = {};
+    let votes = {};
+    let winnerObj = {};
+    let mostVotes = 0;
+    let winner = "";
 
     answers.forEach((answer) => {
       if (votes[answer.answers[0].answer]) votes[answer.answers[0].answer]++;
@@ -79,7 +82,14 @@ router.get("/vote/:id/results", auth, async (req, res) => {
       }
     });
 
-    res.send({ votes, formName: answers[0].formName });
+    for (let vote in votes) {
+      if (votes[vote] > mostVotes) {
+        mostVotes = votes[vote];
+        winner = vote;
+      }
+    }
+
+    res.send({ votes, formName: answers[0].formName, winnerObj });
   } catch (error) {
     console.log(error);
   }

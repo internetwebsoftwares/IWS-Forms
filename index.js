@@ -18,7 +18,7 @@ mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
 
 app.use(
   cors({
-    origin: "https://forms-iws.netlify.app",
+    origin: "http://localhost:3000",
     optionsSuccessStatus: 200,
   })
 );

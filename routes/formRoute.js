@@ -119,7 +119,7 @@ router.patch("/form/:id/accepting-responses", auth, async (req, res) => {
     }
     form.isAcceptingResponses = `${form.isAcceptingResponses ? false : true}`;
     await form.save();
-    res.send(`Form is accepting responses: ${form.isAcceptingResponses}`);
+    res.send(form.isAcceptingResponses);
   } catch (error) {
     console.log(error);
   }
